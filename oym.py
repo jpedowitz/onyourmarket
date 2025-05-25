@@ -27,7 +27,11 @@ def webhook():
             }
         }]
     }
+import logging
+logging.basicConfig(level=logging.INFO)
 
+# Add this:
+print("Sending payload to GA4:", payload)
     response = requests.post(
         f"https://www.google-analytics.com/mp/collect?measurement_id={GA4_MEASUREMENT_ID}&api_secret={GA4_API_SECRET}",
         json=payload

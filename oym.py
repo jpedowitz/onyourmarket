@@ -1,6 +1,7 @@
 from flask import Flask, request
 import requests
 import os
+import logging
 
 app = Flask(__name__)
 
@@ -27,23 +28,23 @@ def webhook():
             }
         }]
     }
-import logging
-logging.basicConfig(level=logging.INFO)
 
-# Add this:
-print("Sending payload to GA4:", payload)
+    logging.basicConfig(level=logging.INFO)
+    print("Sending payload to GA4:", payload)
+
     response = requests.post(
         f"https://www.google-analytics.com/mp/collect?measurement_id={GA4_MEASUREMENT_ID}&api_secret={GA4_API_SECRET}",
         json=payload
     )
-print("Payload sent to GA4:", payload)
-print("GA4 response code:", response.status_code)
-print("GA4 response text:", response.text)
+
+    print("Payload sent to GA4:", payload)
+    print("GA4 response code:", response.status_code)
+    print("GA4 response text:", response.text)
+
     if response.status_code == 204:
-        return ("ok", 200)
+        return "ok", 200
     else:
-        print(response.text)
-        return ("error", 500)
+        return "error", 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)

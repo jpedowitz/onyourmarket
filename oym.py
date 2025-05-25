@@ -36,7 +36,9 @@ print("Sending payload to GA4:", payload)
         f"https://www.google-analytics.com/mp/collect?measurement_id={GA4_MEASUREMENT_ID}&api_secret={GA4_API_SECRET}",
         json=payload
     )
-
+print("Payload sent to GA4:", payload)
+print("GA4 response code:", response.status_code)
+print("GA4 response text:", response.text)
     if response.status_code == 204:
         return ("ok", 200)
     else:
